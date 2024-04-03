@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from core.models import Student
 from django.core.paginator import Paginator
 
@@ -19,3 +19,12 @@ def students(request):
     if request.htmx:
         return render(request, 'core/partials/list.html', context)
     return render(request, 'core/index.html', context)
+
+
+
+def student_detail(request, pk):
+    student = get_object_or_404(Student, pk=pk)
+    context = {
+        'student': student
+    }
+    return render(request, 'core/student.html', context)
