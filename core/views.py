@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from core.models import Student
 from django.core.paginator import Paginator
 from .forms import StudentForm
+from django.http import QueryDict
 
 # Create your views here.
 def index(request):
@@ -28,8 +29,16 @@ def student_detail(request, pk):
     context = {
         'student': student
     }
-    return render(request, 'core/student.html', context)
-
+    if request.method == 'GET':
+        return render(request, 'core/student.html', context)
+    elif request.method == 'PUT':
+        data = QueryDict(request.body).dict()
+        form = StudentForm(data, instance=student)
+        if form.is_valid():
+            form.save()
+            return render(request, 'core/partials/student-details.html', context)
+        context['form'] = form
+        return render(request, 'core/partials/edit-student-form.html', context)
 
 
 def student_edit_form(request, pk):

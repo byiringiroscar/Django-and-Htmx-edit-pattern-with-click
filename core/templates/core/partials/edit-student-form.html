@@ -1,4 +1,4 @@
-<form hx-put="{% url 'student-detail' student.pk %}" hx-target="#student-details">
+<form hx-put="{% url 'student_detail' student.pk %}" hx-target="#student-details">
     {% csrf_token %}
     {{ form.as_p }}
 
