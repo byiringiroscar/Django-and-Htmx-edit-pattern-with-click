@@ -28,3 +28,12 @@ def student_detail(request, pk):
         'student': student
     }
     return render(request, 'core/student.html', context)
+
+
+
+def student_edit_form(request, pk):
+    student = get_object_or_404(Student, pk=pk)
+    context = {
+        'student': student
+    }
+    return render(request, 'core/student_edit_form.html', context)
