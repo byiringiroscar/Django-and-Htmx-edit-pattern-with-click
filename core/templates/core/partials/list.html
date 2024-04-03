@@ -1,7 +1,12 @@
 {% for student in page_obj %}
 
 <tr>
-    <td>{{ student.name }}</td>
+    <td>
+        <a href="{% url 'student_detail' student.id %}">
+
+            {{ student.name }}
+        </a>
+    </td>
     <td>{{ student.subject }}</td>
     <td>{{ student.date_of_birth}}</td>
 
