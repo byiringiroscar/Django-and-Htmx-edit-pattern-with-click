@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from core.models import Student
 from django.core.paginator import Paginator
+from .forms import StudentForm
 
 # Create your views here.
 def index(request):
@@ -33,7 +34,9 @@ def student_detail(request, pk):
 
 def student_edit_form(request, pk):
     student = get_object_or_404(Student, pk=pk)
+    form = StudentForm(instance=student)
     context = {
-        'student': student
+        'student': student,
+        'form': form
     }
-    return render(request, 'core/student_edit_form.html', context)
+    return render(request, 'core/partials/edit-student-form.html', context)
